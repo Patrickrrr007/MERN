@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useProductStore } from "../store/product";
+import { useNavigate } from "react-router-dom";
 
 const CreatePage = () => {
 	const [newProduct, setNewProduct] = useState({
@@ -8,11 +9,21 @@ const CreatePage = () => {
 		image: "",
 	});
 
-	const { createProduct } = useProductStore();
+	const { createProduct, fetchProducts } = useProductStore();
+	const navigate = useNavigate();
 
 	const handleAddProduct = async () => {
-		await createProduct(newProduct);
-		setNewProduct({ name: "", price: "", image: "" });
+		const result = await createProduct(newProduct);
+		if (result.success) {
+			// 重新獲取產品列表
+			await fetchProducts();
+			// 清空表單
+			setNewProduct({ name: "", price: "", image: "" });
+			// 跳轉回主頁
+			navigate("/");
+		} else {
+			alert(result.message || "Failed to create product");
+		}
 	};
 
 	return (
