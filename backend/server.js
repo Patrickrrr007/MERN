@@ -11,12 +11,19 @@ import authRoutes from "./routes/auth.route.js";
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5002;
+const PORT = process.env.PORT || 5003;
 
 const __dirname = path.resolve();
 
 app.use(express.json()); // allows us to accept JSON data in the req.body
-app.use(cors()); 
+// CORS 設定
+const corsOptions = {
+  origin: process.env.NODE_ENV === "production" 
+    ? [process.env.FRONTEND_URL] // 從環境變數讀取前端 URL
+    : ["http://localhost:5173", "http://localhost:3000"],
+  credentials: true,
+};
+app.use(cors(corsOptions)); 
 
 app.use("/api/products", productRoutes);
 app.use("/api/auth", authRoutes);

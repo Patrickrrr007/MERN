@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 
 const generateToken = (userId) => {
     if (!process.env.JWT_SECRET) {
-        throw new Error("❌ JWT_SECRET 未定義，請檢查 .env 是否正確設置");
+        throw new Error("❌ JWT_SECRET is not defined, please check if .env is properly configured");
     }
 
     console.log("✅ JWT_SECRET is loaded");
