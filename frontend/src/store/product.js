@@ -8,7 +8,7 @@ export const useProductStore = create((set) => ({
 			return { success: false, message: "Please fill in all fields." };
 		}
 		try {
-			const API_URL = import.meta.env.VITE_API_URL || "/api";
+			const API_URL = "/api";
 			const res = await fetch(`${API_URL}/products`, {
 				method: "POST",
 				headers: {
@@ -33,7 +33,7 @@ export const useProductStore = create((set) => ({
 	},
 	fetchProducts: async () => {
 		try {
-			const API_URL = import.meta.env.VITE_API_URL || "/api";
+			const API_URL = "/api";
 			const res = await fetch(`${API_URL}/products`);
 			const data = await res.json();
 			if (data.success) {
@@ -46,7 +46,7 @@ export const useProductStore = create((set) => ({
 		}
 	},
 	deleteProduct: async (pid) => {
-		const API_URL = import.meta.env.VITE_API_URL || "/api";
+		const API_URL = "/api";
 		const res = await fetch(`${API_URL}/products/${pid}`, {
 			method: "DELETE",
 		});
@@ -58,7 +58,7 @@ export const useProductStore = create((set) => ({
 		return { success: true, message: data.message };
 	},
 	updateProduct: async (pid, updatedProduct) => {
-		const API_URL = import.meta.env.VITE_API_URL || "/api";
+		const API_URL = "/api";
 		const res = await fetch(`${API_URL}/products/${pid}`, {
 			method: "PUT",
 			headers: {
